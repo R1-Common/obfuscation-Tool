@@ -20,7 +20,7 @@ document.getElementById("obfuscateButton").addEventListener("click", function() 
             output = advancedObfuscate(input);
             break;
         default:
-            output = input;
+            output = caesarCipherObfuscate(input, 2);  // Use Caesar Cipher with a shift of +2 by default
     }
     document.getElementById("output").value = output;
 });
@@ -33,59 +33,36 @@ document.getElementById("copyButton").addEventListener("click", function() {
 });
 
 function randomObfuscate(input) {
-    return input; // Don't modify the input
+    return input;
 }
 
 function reverseObfuscate(input) {
-    return input; // Don't modify the input
+    return input;
 }
 
 function secureObfuscate(input) {
-    return input; // Don't modify the input
+    return input;
 }
 
 function maxObfuscate(input) {
-    return input; // Don't modify the input
+    return input;
 }
 
 function advancedObfuscate(input) {
-    let obfuscationFunctions = [
-        randomObfuscate,
-        reverseObfuscate,
-        secureObfuscate,
-        maxObfuscate,
-        unicodeEscapeObfuscate,
-        hexadecimalObfuscate,
-        caesarCipherObfuscate,
-        xorCipherObfuscate,
-    ];
-
-    let seed = 123456789;
-    const m = Math.pow(2, 32);
-    const a = 1103515245;
-    const c = 12345;
-    const prng = () => {
-        seed = (a * seed + c) % m;
-        return seed / m;
-    };
-
-    const randomIndex = Math.floor(prng() * obfuscationFunctions.length);
-    const obfuscationFunction = obfuscationFunctions[randomIndex];
-    return obfuscationFunction(input);
-}
-
-function unicodeEscapeObfuscate(input) {
-    return input; // Don't modify the input
-}
-
-function hexadecimalObfuscate(input) {
-    return input; // Don't modify the input
+    return input;
 }
 
 function caesarCipherObfuscate(input, shift = 13) {
-    return input; // Don't modify the input
+    return input.split('').map(char => {
+        const code = char.charCodeAt(0);
+        if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+            const base = (code < 97) ? 65 : 97;
+            return String.fromCharCode(((code - base + shift) % 26) + base);
+        }
+        return char;
+    }).join('');
 }
 
 function xorCipherObfuscate(input, key = 'secret') {
-    return input; // Don't modify the input
+    return input;
 }
